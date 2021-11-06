@@ -1,4 +1,4 @@
-# [Kubectl in practice](https://github.com/eduflornet/Kubernetes)
+# [Kubectl in practice](https://github.com/eduflornet/Kubernetes/tree/main/resources)
 I have using the following tools:
 
 - Docker Desktop
