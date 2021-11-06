@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    zone: prod
+    version: v1
+    otra: myLabel
+spec:
+  containers:
+   - name: nginx   
+     image: eduflormir/nginx:v1
