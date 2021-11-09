@@ -103,38 +103,45 @@ kubectl describe pod/nginx
 ```
 
 
-### Obtener el detalle de un pod en formato YAML
+### get pod nginx -o yaml
+Obtener el detalle de un pod en formato YAML
 ```
 kubectl get pod nginx -o yaml 
 ```
 
-### Obtener el detalle de un pod en formato YAML y guardarlo en un fichero nginx-file.yaml
+### get pod nginx -o yaml >nginx-file.yaml
+Obtener el detalle de un pod en formato YAML y guardarlo en un fichero nginx-file.yaml
 ```
 kubectl get pod nginx -o yaml >nginx-file.yaml
 ```
 
-### Borrar el pod apache con un periodo de espera de 5 segundos
+### delete pod apache --grace-period=5
+Borrar el pod apache con un periodo de espera de 5 segundos
 ```
 kubectl delete pod apache --grace-period=5 
 ```
 
-### Borrar el pod apache inmediatamente
+### delete pod apache --now
+Borrar el pod apache inmediatamente
 ```
 kubectl delete pod apache --now
 ```
 
-### Borrar todos los pods
+### delete pods --all
+Borrar todos los pods
 ```
 kubectl delete pods --all 
 ```
 
-## Pod con multiples contenedores
+## create -f .\multi.yaml
+Pod con multiples contenedores
 Crear un Pod con multi contenedores a partir de un fichero YAML
 ```
 kubectl create -f .\multi.yaml
 ```
 
-### Para ver el log de uno de los contenedores de un Pod, para este ejemplo: almacen
+### logs pod/redis-django -c almacen
+Para ver el log de uno de los contenedores de un Pod, para este ejemplo: almacen
 ```
 kubectl logs pod/redis-django -c almacen
 ```
@@ -146,27 +153,32 @@ Primero vamos a borrar todos los pods que tenemos
 kubectl delete pods --all 
 ```
 
-### Crear pod nginx a travez de un fichero YAML
+### create -f .\nginx.yaml
+Crear pod nginx a travez de un fichero YAML
 ```
 kubectl create -f .\nginx.yaml
 ```
 
-### Ver el detalle de un pod nginx
+### describe pod nginx
+Ver el detalle de un pod nginx
 ```
 kubectl describe pod nginx
 ```
 
-### Obtener informacion de un pod en formato YAML
+### get pod nginx -o yaml
+Obtener informacion de un pod en formato YAML
 ```
 kubectl get pod nginx -o yaml
 ```
 
-### Borrar pod/nginx
+### delete pod/nginx
+Borrar pod/nginx
 ```
 kubectl delete pod/nginx 
 ```
 
-###  "**apply**" para crear un pod a partir de un fichero YAML
+### apply -f .\nginx.yaml
+"**apply**" para crear un pod a partir de un fichero YAML
 ```
 kubectl apply -f .\nginx.yaml 
 ```
@@ -179,17 +191,19 @@ labels:
     other: myLabel
 ```
 
-### Obtener la información del pod y vemos que ha cambiado el estado, con la nueva etiqueta
+### get pod nginx -o yaml
+Obtener la información del pod y vemos que ha cambiado el estado, con la nueva etiqueta
 ```
 kubectl get pod nginx -o yaml
 ```
 
 ## Restart policy 
-**Always**: siempre que el pod sufra una caida, que reinicie (por dafult todos lo tienen)
-**OnFailure**: Reinicia el Pod solo si ha fallado
-**Never**: nunca se reinicie
+- **Always**: siempre que el pod sufra una caida, que reinicie (por dafult todos lo tienen)
+- **OnFailure**: Reinicia el Pod solo si ha fallado
+- **Never**: nunca se reinicie
 
-### Crear un pod con una politica de reinicio
+### apply -f restart-always.yaml
+Crear un pod con una politica de reinicio
 ```
 kubectl apply -f restart-always.yaml
 ```
@@ -200,7 +214,8 @@ El pod tiene Cero reinicios -> Restart Count: 0
 kubectl describe pod/tomcat
 ```
 
-### Entrar a la shell del contenedor
+### exec -it tomcat bash
+Entrar a la shell del contenedor
 ```
 Kubectl exec -it tomcat bash
 ```
@@ -218,7 +233,8 @@ NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED -
 root@tomcat:/usr/local/tomcat# command terminated with exit code 137
 ```
 
-### Consultar que se ha reiniciado el pod de tomcat nuevamente --> restartCount: 1
+### get pods
+Consultar que se ha reiniciado el pod de tomcat nuevamente --> restartCount: 1
 ```
 kubectl get pods
 ```
@@ -228,11 +244,13 @@ kubectl get pods
 Kubectl delete pod/tomcat
 ```
 
-### Aplicar politica de **OnFailure**
+### restartPolicy: OnFailure 
+Aplicar politica de **OnFailure**
 ```
 restartPolicy: OnFailure
 ```
-### Obtener el ID del primer contenedor en el Pod
+### get pod nginx -o jsonpath='{.status.containerStatuses[0].containerID}'
+Obtener el ID del primer contenedor en el Pod
 ```
 kubectl get pod nginx -o jsonpath='{.status.containerStatuses[0].containerID}'
 ```
