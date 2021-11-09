@@ -1,30 +1,27 @@
-# Notas
-
-Pod: Esta compuesto por contenedores Docker
 ### Creación de Pod
+Pod: Esta compuesto por contenedores Docker
 nginx sera la imagen en la cual se basa el pod
-
 ```
 Kubectl run pod-nginx --image=nginx
 ```
-### Para consultar, comprobar el estado de los pods que estén ejecutandose
+Para consultar, comprobar el estado de los pods que estén ejecutandose
 ```
 Kubectl get nodes -o wide
 ```
-
-### Con **Describe** podemos ver todas las propiedades de cualquier objeto
+### Describe
+Con **Describe** podemos ver todas las propiedades de cualquier objeto
 ```
 Kubectl describe pod/pod-nginx
 ```
-
-### Con **Exec** nos permite ejecutar un comando contra un contenedor, es decir para el ejemplo: ejecuta el comando **ls** dentro del pod-nginx
+### Exec
+Con **Exec** nos permite ejecutar un comando contra un contenedor, es decir para el ejemplo: ejecuta el comando **ls** dentro del pod-nginx
 ```
 Kubectl get pods
 
 Kubectl exec pod-nginx ls
 ```
-
-### Para introducirme dentro del contenedor: **-it bash**
+### -it bash
+Para introducirme dentro del contenedor: **-it bash**
 ```
 Kubectl exec pod-nginx -it bash
 ```
@@ -32,34 +29,33 @@ Kubectl exec pod-nginx -it bash
 ```
 Uname -a
 ```
-
-### Para comprobar los sistemas de ficheros
+### df -h
+Para comprobar los sistemas de ficheros
 ```
 df -h
 ```
-
-### Crear un pod con apache y asignarle el puerto 8080
+### run
+Crear un pod con apache y asignarle el puerto 8080
 ```
 Kubectl run apache --image=httpd --port=8080
-
+```
+### logs
+Para ver las 30 ultimas lineas que tengo disponibles en el log de pod-nginx
+```
 kubectl logs apache
-```
-
-### Para ver las 30 ultimas lineas que tengo disponibles en el log de pod-nginx
-```
 kubectl logs pod-nginx --tail=30
 ```
-
-###  Para introducirme dentro del contenedor apache: **-it bash**
+Para introducirme dentro del contenedor apache: **-it bash**
 ```
 Kubectl exec apache -it bash
 ```
 
-### Usando al comando wget
+### wget
+Usando al comando wget
 ```
 wget localhost
 ```
-
+### apt-get update
 Pero no esta disponble, entonces lo primero es actualizar el container con el siguiente comando
 ```
 apt-get update
@@ -70,34 +66,42 @@ apt-get update
 apt-get install wget
 ```
 
-### Ahora si vamos a probar wget localhost
+### wget localhost
+Ahora si vamos a probar wget localhost
 ```
 wget localhost
 ```
-### Entonces para mirar el log de cualquier pod en modo depuración seria con el comando logs -f
+
+### logs -f
+Entonces para mirar el log de cualquier pod en modo depuración seria con el comando logs -f
 ```
 kubectl logs -f apache
 ```
 
-### Para buscar en docker un contenedor con la palabra "apache"
+### docker ps
+Buscar en docker un contenedor con la palabra "apache"
 ```
 docker ps | findstr "apache"
 ```
 
-### Crear un pod a travez de una especificación en YAML
+### create
+Crear un pod a travez de una especificación en YAML
 ```
 Kubectl create -f nginx.yaml
 ```
 
-### Borrar un Pod
+### delete
+Borrar un Pod
 ```
 kubectl delete pod/nginx1 
 ```
 
-### Obtener el detalle de un pod
+### describe
+Obtener el detalle de un pod
 ```
 kubectl describe pod/nginx
 ```
+
 
 ### Obtener el detalle de un pod en formato YAML
 ```
@@ -125,7 +129,7 @@ kubectl delete pods --all
 ```
 
 ## Pod con multiples contenedores
-### Crear un Pod con multi contenedores a partir de un fichero YAML
+Crear un Pod con multi contenedores a partir de un fichero YAML
 ```
 kubectl create -f .\multi.yaml
 ```
@@ -135,8 +139,9 @@ kubectl create -f .\multi.yaml
 kubectl logs pod/redis-django -c almacen
 ```
 
-## Comando apply - son de los unicos para trabajar de forma declarativa
-### Primero vamos a borrar todos los pods que tenemos
+### apply 
+De los unicos comandos para trabajar de forma declarativa
+Primero vamos a borrar todos los pods que tenemos
 ```
 kubectl delete pods --all 
 ```
@@ -146,7 +151,7 @@ kubectl delete pods --all
 kubectl create -f .\nginx.yaml
 ```
 
-### Ver el detalle de un Pod nginx
+### Ver el detalle de un pod nginx
 ```
 kubectl describe pod nginx
 ```
@@ -161,12 +166,12 @@ kubectl get pod nginx -o yaml
 kubectl delete pod/nginx 
 ```
 
-### Usando comando "**apply**" para crear un pod a partir de un fichero YAML
+###  "**apply**" para crear un pod a partir de un fichero YAML
 ```
 kubectl apply -f .\nginx.yaml 
 ```
 
-### Supongamos que agrego una etiqueta nueva a mi fichero YAML
+### Agregar una etiqueta nueva a mi fichero YAML
 ```
 labels:
     zone: prod
@@ -174,33 +179,34 @@ labels:
     other: myLabel
 ```
 
-### Ahora vuelvo a obtener la información del pod y vemos que ha cambiado el estado, con la nueva etiqueta
+### Obtener la información del pod y vemos que ha cambiado el estado, con la nueva etiqueta
 ```
 kubectl get pod nginx -o yaml
 ```
 
 ## Restart policy 
-### **Always**: siempre que el pod sufra una caida, que reinicie (por dafult todos lo tienen)
-### **OnFailure**: Reinicia el Pod solo si ha fallado
-### **Never**: nunca se reinicie
+**Always**: siempre que el pod sufra una caida, que reinicie (por dafult todos lo tienen)
+**OnFailure**: Reinicia el Pod solo si ha fallado
+**Never**: nunca se reinicie
 
-### Voy a crear un pod con una politica de reinicio
+### Crear un pod con una politica de reinicio
 ```
 kubectl apply -f restart-always.yaml
 ```
 
-### Observa que el pod tiene Cero reinicios -> Restart Count: 0 
+### describe
+El pod tiene Cero reinicios -> Restart Count: 0 
 ```
 kubectl describe pod/tomcat
 ```
 
-### Voy a entrar a la shell del contenedor
+### Entrar a la shell del contenedor
 ```
 Kubectl exec -it tomcat bash
 ```
 
-### Voy a parar tomcat mediente **catalina.sh stop**
-### Observa que me ha sacado del contenedor
+### Parar tomcat mediente **catalina.sh stop**
+Este seria el trace que me devuelve:
 ```
 Using CATALINA_BASE:   /usr/local/tomcat
 Using CATALINA_HOME:   /usr/local/tomcat
@@ -212,17 +218,17 @@ NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED -
 root@tomcat:/usr/local/tomcat# command terminated with exit code 137
 ```
 
-### Ahora consultamos y observa que se ha reiniciado el pod de tomcat nuevamente --> restartCount: 1
+### Consultar que se ha reiniciado el pod de tomcat nuevamente --> restartCount: 1
 ```
 kubectl get pods
 ```
 
-### Ahora lo borramos
+### delete
 ```
 Kubectl delete pod/tomcat
 ```
 
-### Aplicamos una politica de **OnFailure**
+### Aplicar politica de **OnFailure**
 ```
 restartPolicy: OnFailure
 ```
@@ -231,13 +237,14 @@ restartPolicy: OnFailure
 kubectl get pod nginx -o jsonpath='{.status.containerStatuses[0].containerID}'
 ```
 
-### Obtener mas informacion al consultar los Pods
+### get pods -o wide
+Obtener mas informacion al consultar los Pods
 ```
 kubectl get pods -o wide
 ```
 
 ## Labels
-### Obtener la informacion de las labels
+Obtener la informacion de las labels
 ```
  kubectl get pod tomcat --show-labels
  ```
@@ -249,7 +256,7 @@ tomcat   1/1     Running   0          2m9s   estado=desarrollo
 ```
 
 
-### Pintar una columna estado al hacer la consulta de las labels
+Pintar una columna estado al hacer la consulta de las labels
 ```
 kubectl get pod tomcat --show-labels -L estado
 ```
@@ -259,7 +266,8 @@ NAME     READY   STATUS    RESTARTS   AGE     ESTADO       LABELS
 tomcat   1/1     Running   0          2m42s   desarrollo   estado=desarrollo
 ```
 
-### Aplicar todos los ficheros que estan en un directorio
+### apply -f .
+Aplicar todos los ficheros que estan en un directorio
 ```
 kubectl apply -f .
 ```
@@ -271,47 +279,56 @@ pod/tomcat2 created
 pod/tomcat3 created
 ```
 
-### Obtener las etiquetas de todos los pods
+### get pods --show-labels
+Obtener las etiquetas de todos los pods
 ```
 kubectl get pods --show-labels
 ```
 
-### Obtener todos los pods cuya etiqueta sea "desarrollo"
+### get pods --show-labels -l estado=desarrollo
+Obtener todos los pods cuya etiqueta sea "desarrollo"
 ```
 kubectl get pods --show-labels -l estado=desarrollo
 ```
 
-### Obtener todos los pods cuya etiquetas sea "estado=desarrollo" y "responsable=juan"
+### get pods --show-labels -l estado=desarrollo,responsable=juan
+Obtener todos los pods cuya etiquetas sea "estado=desarrollo" y "responsable=juan"
 ``` 
 kubectl get pods --show-labels -l estado=desarrollo,responsable=juan
 ``` 
 
-### Obtener todos los pods cuya etiquetas NO sean  "estado=desarrollo" y "responsable=juan"
+### get pods --show-labels -l estado!=desarrollo,responsable!=juan
+Obtener todos los pods cuya etiquetas NO sean  "estado=desarrollo" y "responsable=juan"
 ``` 
 kubectl get pods --show-labels -l estado!=desarrollo,responsable!=juan 
 ```
 
-### Obtener todos los pods cuya etiquetas NO sea  "estado=testing" 
+### get pods --show-labels -l estado!=testing
+Obtener todos los pods cuya etiquetas NO sea  "estado=testing" 
 ```
 kubectl get pods --show-labels -l estado!=testing
 ```
 
-### Obtener todos los pods cuya etiqueta este en "desarrollo" 
+### get pods --show-labels -l 'estado in(desarrollo)'
+Obtener todos los pods cuya etiqueta este en "desarrollo" 
 ```
 kubectl get pods --show-labels -l 'estado in(desarrollo)'
 ```
 
-### Obtener todos los pods cuya etiqueta este en "desarrollo" y "testing" 
+### get pods --show-labels -l 'estado in(desarrollo, testing)'
+Obtener todos los pods cuya etiqueta este en "desarrollo" y "testing" 
 ```
 kubectl get pods --show-labels -l 'estado in(desarrollo, testing)'
 ```
 
-### Obtener todos los pods cuya etiqueta NO este en "desarrollo" y "testing"
+### get pods --show-labels -l 'estado notin(desarrollo, testing)' 
+Obtener todos los pods cuya etiqueta NO este en "desarrollo" y "testing"
 ```
 kubectl get pods --show-labels -l 'estado notin(desarrollo, testing)' 
 ```
 
-### Borrar todos los pods cuya etiqueta este en "desarrollo"
+### delete pods -l 'estado in(desarrollo)'   
+Borrar todos los pods cuya etiqueta este en "desarrollo"
 ```
 kubectl delete pods -l 'estado in(desarrollo)'   
 ```
@@ -322,30 +339,35 @@ pod "tomcat" deleted
 pod "tomcat1" deleted
 ```
 
-### Obtener anotaciones de un pod mediante formato json
+### get pod tomcat4 -o jsonpath="{.metadata.annotations}"
+Obtener anotaciones de un pod mediante formato json
 ```
 kubectl get pod tomcat4 -o jsonpath="{.metadata.annotations}"
 ```
 
 ## Deployment
-### Un **deployment** es un wrapper que proporciona actualizaciones declarativas para los Pods y los ReplicaSets.
+Un **deployment** es un wrapper que proporciona actualizaciones declarativas para los Pods y los ReplicaSets.
 
-### Crear un deployment en modo Run (imperativo)
+### create deployment apache --image=httpd
+Crear un deployment en modo Run (imperativo)
 ```
 kubectl create deployment apache --image=httpd
 ```
 
-### Para ver los deplyments
+### get deploy
+Para ver los deplyments
 ```
 kubectl get deploy    
 ```
 
-### Para consultar los ReplicaSets
+### get rs
+Para consultar los ReplicaSets
 ```
 kubectl get rs
 ```    
 
-### Obtener el detalle de un deploy apache
+### describe deploy
+Obtener el detalle de un deploy apache
 ```
 kubectl describe deploy apache
 ```
