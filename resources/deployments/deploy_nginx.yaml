@@ -1,12 +1,14 @@
-apiVersion: apps/v1 # i se Usa apps/v1beta2 para versiones anteriores a 1.9.0
 kind: Deployment
+apiVersion: apps/v1 # i se Usa apps/v1beta2 para versiones anteriores a 1.9.0
 metadata:
   name: nginx-d
+  labels:
+    estado: "1"
 spec:
-  selector:   #permite seleccionar un conjunto de objetos que cumplan las condiciones
+  selector:   #permite seleccionar un conjunto de objetos que cumplan las condicione
     matchLabels:
       app: nginx
-  replicas: 3 # indica al controlador que ejecute 2 pods
+  replicas: 2 # indica al controlador que ejecute 2 pods
   template:   # Plantilla que define los containers
     metadata:
       labels:
@@ -17,4 +19,10 @@ spec:
         image: nginx:1.7.9
         ports:
         - containerPort: 80
-
+        resources:
+          limits:
+              memory: "300Mi" ## Memoria maxima
+              cpu: "2" # CPU maximo
+          requests: 
+              memory: "200Mi" ## Memoria minima
+              cpu: "0.5" # CPU minimo
