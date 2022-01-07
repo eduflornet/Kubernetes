@@ -414,3 +414,87 @@ spec:
         ports:
         - containerPort: 80
 ```
+
+### apply -f .\deploy_nginx.yaml
+Aplicar un despliegue mediante un fichero YAML
+De forma que lo puedo modificar rapidamente sin reconstruir el objeto
+```
+kubectl apply -f .\deploy_nginx.yaml
+```
+Aparece lo siguiente:
+deployment.apps/nginx-d created
+
+### get deploy
+Obtener información de los despliegues
+```
+kubectl get deploy
+```
+
+### get rs 
+Obtener los replicasets
+```
+kubectl get rs 
+```
+
+### get rs -o wide
+Obtener el detalle de los replicasets 
+```
+kubectl get rs -o wide
+```
+
+### get deploy -o wide 
+Obtener el detalle de los despliegues
+```
+kubectl get deploy -o wide 
+```
+
+### get pods -l app=nginx
+Buscar todos los pods con la etiqueta = nginx
+```
+kubectl get pods -l app=nginx
+```
+
+### get pods -l app=nginx -L app
+Obtener todos los pods con la etiqueta nginx y colocar una columna "app"
+```
+kubectl get pods -l app=nginx -L app
+```
+
+### get pods -L app
+Obtener todos los pods y agregar una columna "app"
+```
+kubectl get pods -L app
+```
+
+### get pods,deploy,rs
+Consultar en una sola linea Pods, Deployments, y Replicasets
+```
+kubectl get pods,deploy,rs  
+```
+
+### get pods,deploy,rs -l app=nginx
+Consultar en una sola linea Pods, Deployments, y Replicasets cuya etiqueta es "nginx"
+```
+kubectl get pods,deploy,rs -l app=nginx
+```
+
+### edit deploy nginx-d
+Editar en caliente el fichero de despliegue y modificar informacion
+```
+kubectl edit deploy nginx-d
+```
+
+### get deploy nginx-d -o yaml >deploy_nginx-file.yaml
+Obtener el fichero de despliegue y guardarlo en un fichero YAML
+```
+ kubectl get deploy nginx-d -o yaml >deploy_nginx-file.yaml 
+```
+
+### scale deploy nginx-d --replicas=5
+Escalar con 5 replicas el deployment de nginx-d
+```
+kubectl scale deploy nginx-d --replicas=5
+```
+
+
+
