@@ -1,4 +1,6 @@
-# [Kubectl en la practica](https://github.com/eduflornet/Kubernetes/tree/main/resources)
+# [Kubectl in practice](https://github.com/eduflornet/Kubernetes/tree/main/resources)
+# [Kubernetes on Azure](https://github.com/eduflornet/Kubernetes/tree/main/kubernetes-on-azure)
+
 He estado usando las siguientes herramientas:
 
 - Docker Desktop
