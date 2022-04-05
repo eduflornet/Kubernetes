@@ -1,10 +1,14 @@
-# [Kubectl en la practica](https://github.com/eduflornet/Kubernetes/tree/main/resources)
+# [Kubectl in practice](https://github.com/eduflornet/Kubernetes/tree/main/resources)
+# [Kubernetes on Azure](https://github.com/eduflornet/Kubernetes/tree/main/kubernetes-on-azure)
+
 He estado usando las siguientes herramientas:
 
 - Docker Desktop
 - Kubectl
 - YAML 
 - VSCode
+- [Kubernetes on Lens](https://k8slens.dev/desktop.html)
+- [AZ CLI] (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 ## Referencias:
 - [Kubernetes Documentation](https://kubernetes.io/docs/home/)
