@@ -8,7 +8,7 @@ He estado usando las siguientes herramientas:
 - YAML 
 - VSCode
 - [Kubernetes on Lens](https://k8slens.dev/desktop.html)
-- [AZ CLI] (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 ## Referencias:
 - [Kubernetes Documentation](https://kubernetes.io/docs/home/)
