@@ -1,7 +1,17 @@
+
+## Creating my first AKS cluster with Terraform
+
 I have been using the following tools:
 
 - Terraform
 - VSCode
+
+To get the required credentials to access your cluster, you need to type the following command:
+
+```
+az aks get-credentials --resource-group k8sonazure --name k8scluster
+
+```
 
 In the same order, run the following commands:
 ```
