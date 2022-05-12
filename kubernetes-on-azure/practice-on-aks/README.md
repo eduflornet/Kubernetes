@@ -53,3 +53,25 @@ Escala un servivio desplegado a 3 replicas, por ejemplo:
 ```
  kubectl scale deployment myapp --replicas=3
 ```
+###  kubectl get deployment --watch
+Consultar lo que teneemos desplegado actualmente
+```
+ kubectl get deployment --watch
+```
+###  az aks nodepool show
+[az aks nodepool](https://docs.microsoft.com/en-US/cli/azure/aks/nodepool#az_aks_nodepool_show)
+
+
+```
+ az aks nodepool show --cluster-name mycluster --name mynodepool --resource-group myresourcegroup
+```
+###  kubectl get pods --namespace kube-system
+
+```
+ kubectl get pods --namespace kube-system | Measure
+```
+###  kubectl get deployments
+
+```
+ kubectl get deployments
+```
